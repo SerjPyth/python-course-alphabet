@@ -163,7 +163,7 @@ def task_12_list_suppliers_from_specified_countries(cur):
 
     Returns: 8 records
     """
-    cur.execute("SELECT * FROM Suppliers WHERE Country = 'USA' OR Country = 'UK' OR Country = 'Japan';")
+    cur.execute("SELECT * FROM Suppliers WHERE Country = 'USA' AND Country = 'UK' AND Country = 'Japan';")
     return cur.fetchall()
 
 def task_13_list_products_from_sweden_suppliers(cur):
@@ -175,11 +175,8 @@ def task_13_list_products_from_sweden_suppliers(cur):
 
     Returns: 3 records
     """
-    # cur.execute('''SELECT Country FROM Suppliers INNER JOIN Products ON Suppliers.SupplierId = Products.SupplierId;
-    # SELECT ProductName FROM Products WHERE Country = 'Sweden';''')
-    # return cur.fetchall()
-
-    pass
+    cur.execute('''SELECT Products.ProductName FROM Suppliers INNER JOIN Products ON Suppliers.SupplierId = Products.SupplierId WHERE Country = 'Sweden';''')
+    return cur.fetchall()
 
 def task_14_list_products_with_supplier_information(cur):
     """
@@ -190,8 +187,10 @@ def task_14_list_products_with_supplier_information(cur):
 
     Returns: 77 records
     """
-    pass
-
+    cur.execute('''SELECT Products.ProductId, Products.ProductName, Products.Unit, Products.Price, Suppliers.Country, 
+    Suppliers.City, Suppliers.SupplierName FROM Products INNER JOIN Suppliers 
+    ON Products.SupplierId = Suppliers.SupplierId WHERE SupplierName IS NOT NULL''')
+    return cur.fetchall()
 
 def task_15_list_customers_with_any_order_or_not(cur):
     """
@@ -205,7 +204,6 @@ def task_15_list_customers_with_any_order_or_not(cur):
     cur.execute("SELECT Customers.CustomerName, Customers.ContactName, Customers.Country, Orders.OrderId FROM Customers"
                 " INNER JOIN Orders ON Customers.CustomerId = Orders.CustomerId;")
     return cur.fetchall()
-    # pass
 
 
 def task_16_match_all_customers_and_suppliers_by_country(cur):
@@ -217,4 +215,6 @@ def task_16_match_all_customers_and_suppliers_by_country(cur):
 
     Returns: 194 records
     """
-    pass
+
+    cur.execute("SELECT * FROM Customers INNER JOIN Suppliers ON Customers.ContactName = Suppliers.ContactName;")
+    return cur.fetchall()
