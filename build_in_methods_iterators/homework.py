@@ -23,6 +23,7 @@ def task_1_fix_names_start_letter(data: DT) -> DT:
 
     return data
 
+
 def task_2_remove_dict_fields(data: DT, redundant_keys: List[str]) -> DT:
     """given_data
     Remove from dictionaries given key value
@@ -40,6 +41,7 @@ def task_2_remove_dict_fields(data: DT, redundant_keys: List[str]) -> DT:
 
     return data
 
+
 def task_3_find_item_via_value(data: DT, value) -> DT:
     """
     Find and return all items that has @searching value in any key
@@ -54,6 +56,7 @@ def task_3_find_item_via_value(data: DT, value) -> DT:
             new_list.append(i)
             return new_list
 
+
 def task_4_min_value_integers(data: List[int]) -> int:
     """
     Find and return minimum value from list
@@ -63,15 +66,17 @@ def task_4_min_value_integers(data: List[int]) -> int:
     except:
         return None
 
+
 def task_5_min_value_strings(data: List[Union[str, int]]) -> str:
     """
     Find the (longest) -> shortest string
     """
-    new_list=list(map(str,data))
+    new_list = list(map(str, data))
     try:
         return min(new_list, key=len)
     except:
         return None
+
 
 def task_6_min_value_list_of_dicts(data: DT, key: str) -> ST:
     """
@@ -79,8 +84,10 @@ def task_6_min_value_list_of_dicts(data: DT, key: str) -> ST:
     Returns:
 
     """
+    new_list = [i for i in data if i.get('age', 0)]
 
-    return min(data, key=lambda x: x['age'], default = 0)
+    return min(new_list, key=lambda x: x.get('age'))
+
 
 def task_7_max_value_list_of_lists(data: List[List[int]]) -> int:
     """
@@ -89,12 +96,14 @@ def task_7_max_value_list_of_lists(data: List[List[int]]) -> int:
 
     return max([i for sublist in data for i in sublist])
 
+
 def task_8_sum_of_ints(data: List[int]) -> int:
     """
     Find sum of all items in given list
     """
 
     return sum(data)
+
 
 def task_9_sum_characters_positions(text: str) -> int:
     """
@@ -111,6 +120,7 @@ def task_9_sum_characters_positions(text: str) -> int:
     """
 
     return sum(map(lambda x: ord(x), text))
+
 
 def task_10_generator_of_simple_numbers() -> Generator[int, None, None]:
     """
