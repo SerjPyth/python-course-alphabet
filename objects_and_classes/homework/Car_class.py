@@ -1,11 +1,12 @@
 from __future__ import annotations
 import uuid
-import random
+# import random
 from constants import *
 
 
 class WrongException(Exception):
     print("Wrong! Try again")
+
 
 class Car:
 
@@ -60,7 +61,7 @@ class Car:
             f"My price is {self.price} while I ran for about {self.mileage}."
 
     def __repr__(self):
-        return "Cars({}, '{}', '{}', {}, {})".format(self.price, self.type, self.producer, self.number, self.mileage)
+        return "Car({}, '{}', '{}', {}, {})".format(self.price, self.type, self.producer, self.number, self.mileage)
 
     def number_change(self):
         new_num = uuid.uuid4()
@@ -68,22 +69,22 @@ class Car:
         return self.number
 
 
-a = random.choice(CARS_TYPES)
-b = random.choice(CARS_PRODUCER)
-c = random.randint(1000, 5000)
-d = random.randint(10000, 50000)
-f = 0
-g = uuid.uuid4()
-e = random.randint(1000, 15000)
-
-car_1 = Car(c, a, b, d, e)
-
-print(car_1)
-
-car_1.number_change()
-
-print(car_1)
-
-car_1.number_change()
-
-print(car_1)
+# a = random.choice(CARS_TYPES)
+# b = random.choice(CARS_PRODUCER)
+# c = random.randint(1000, 5000)
+# d = random.randint(10000, 50000)
+# f = 0
+# g = uuid.uuid4()
+# e = random.randint(1000, 15000)
+#
+# car_1 = Car(c, a, b, d, e)
+#
+# print(car_1)
+#
+# car_1.number_change()
+#
+# print(car_1)
+#
+# car_1.number_change()
+#
+# print(car_1)

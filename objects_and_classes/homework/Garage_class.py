@@ -17,7 +17,6 @@ class Garage:
             self.cars = []
         else:
             self.cars = cars
-        # self.cars = cars if cars is not None else []
         self.places = int(places)
         if owner is None:
             self.owner = None
@@ -44,9 +43,14 @@ class Garage:
         return f"Hello. I`m a garage in {self.town} and I have {self.places} cars inside me. They are: {self.cars}. " \
             f"All of this is owned by {self.owner}."
 
+    def __repr__(self):
+        return "Garages('{}', '{}', {}, {})".format(self.town, self.cars, self.places, self.owner)
+
     def add_car(self, car):
-        if car not in self.cars:
+        if len(self.cars) < self.places:
             self.cars.append(car)
+        else:
+            raise WrongException
 
     def remove_car(self, car):
         if car in self.cars:
@@ -55,7 +59,6 @@ class Garage:
     def hit_hat(self):
         return sum(Car.price, self.cars)
 
-
 # if __name__ == "__main__":
 a = random.choice(TOWNS)
 # b = random.choice(CARS_PRODUCER)
@@ -63,27 +66,30 @@ a = random.choice(TOWNS)
 # b.add_car()
 c = random.randint(2, 6)
 d = 1
-cars = []
+autos = []
 for _ in range(0, c):
-    car = Car(
+    auto = Car(
         price=random.randint(1000, 5000),
         type=random.choice(CARS_TYPES),
         producer=random.choice(CARS_PRODUCER),
         number=uuid.uuid4(),
         mileage=random.randint(1000, 15000)
     )
-    cars.append(car)
+    autos.append(auto)
 
 
-print(list(cars))
-aa = (Garage(a, cars, c, d))
-# print(aa)
-aa.remove_car(cars[0])
+# print(autos)
+aa = (Garage(a, autos, c, d))
+print(aa)
+print(len(aa.cars))
+aa.remove_car(autos[0])
+print(len(aa.cars))
 # print(aa)
 spec_car = Car(2566, "Van", "BMW", 1, 545)
 aa.add_car(spec_car)
-# print(spec_car)
+print(len(aa.cars))
 print(aa)
+# print(Car.__dict__)
 # print(aa.hit_hat())
 # a2a = (Garage(a, cars, c))
 # a2a = (Car(c, a2, b, d, e))
