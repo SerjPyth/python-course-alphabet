@@ -50,6 +50,7 @@ class Garage:
         if len(self.cars) < self.places:
             self.cars.append(car)
         else:
+            print("No free space left!")
             raise WrongException
 
     def remove_car(self, car):

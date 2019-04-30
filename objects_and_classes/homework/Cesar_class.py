@@ -47,9 +47,8 @@ class Cesar:
         if len(self.cars) < self.places:
             self.cars.append(car)
         else:
+            print("No free space left!")
             raise WrongException
 
-if __name__ == "__main__":
-    car_types = ["SUV", "Truck", "Sedan", "Van", "Coupe", "Wagon", "Sports Car", "Diesel", "Crossover", "Luxury Car"]
-    car_producer = ["BENTLEY", "BMW", "Bugatti", "Buick", "Chery", "Chevrolet", "Dodge", "Ford", "Lamborghini"]
-    towns = ["Amsterdam", "Kyiv", "Prague", "Rome", "Paris", "London", "Berlin"]
+
+# if __name__ == "__main__":

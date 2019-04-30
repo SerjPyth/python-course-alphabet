@@ -5,7 +5,9 @@ from constants import *
 
 
 class WrongException(Exception):
-    print("Wrong! Try again")
+    pass
+    # print("Wrong! Try again")
+
 
 
 class Car:
