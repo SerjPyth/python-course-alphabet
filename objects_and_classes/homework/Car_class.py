@@ -2,12 +2,11 @@ from __future__ import annotations
 import uuid
 # import random
 from constants import *
+import json
 
 
 class WrongException(Exception):
     pass
-    # print("Wrong! Try again")
-
 
 
 class Car:
@@ -70,6 +69,21 @@ class Car:
         self.number = new_num
         return self.number
 
+    @classmethod
+    def from_json(cls, data):
+        price = data['price']
+        type = data['type']
+        producer = data['producer']
+        number = data['number']
+        mileage = data['mileage']
+        cr = Car(price=price, type=type, producer=producer, number=number, mileage=mileage)
+        return cr
+
+    @staticmethod
+    def to_json(obj: Car):
+        data = {"price": obj.price, "type": obj.type, "producer": obj.producer,
+                "number": obj.number, "mileage": obj.mileage}
+        return data
 
 # a = random.choice(CARS_TYPES)
 # b = random.choice(CARS_PRODUCER)
