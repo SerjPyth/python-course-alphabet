@@ -22,7 +22,7 @@ class Programmer:
 
 
 if __name__ == "__main__":
-    programmer = Programmer("Captain America")
+    programmer = Programmer("Superman")
     programmer.enough_coffee = True
     # Lets dump object to pickle
     with open("data.txt", "wb") as file:
