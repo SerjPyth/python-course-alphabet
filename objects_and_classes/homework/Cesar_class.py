@@ -26,6 +26,12 @@ class Cesar:
     def __repr__(self):
         return "Cesar('{}', {}, '{}')".format(self.name, self.register_id, self.garages)
 
+    def __setstate__(self, state):
+        self.__dict__ = state
+
+    def __getstate__(self):
+        return self.__dict__
+
     def hit_hat(self):
         return sum(Car.price, Garage.cars)
 

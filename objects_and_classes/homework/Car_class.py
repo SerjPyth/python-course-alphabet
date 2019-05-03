@@ -1,6 +1,8 @@
 from __future__ import annotations
+# from Garage_class import Garage
 import uuid
-# import random
+import random
+import pickle
 from constants import *
 import json
 
@@ -13,6 +15,7 @@ class Car:
 
     def __init__(self, price, type, producer, number, mileage):
         self.price = str(float(price)) + "$"
+        # self.price = float(price)
         self.type = type
         if self.type in CARS_TYPES:
             self.type = type
@@ -25,6 +28,7 @@ class Car:
             raise WrongException
         self.number = uuid.uuid4()
         self.mileage = str(float(mileage)) + " miles"
+        # self.mileage = float(mileage)
 
     def __iter__(self):
         return self
@@ -64,6 +68,12 @@ class Car:
     def __repr__(self):
         return "Car({}, '{}', '{}', {}, {})".format(self.price, self.type, self.producer, self.number, self.mileage)
 
+    def __setstate__(self, state):
+        self.__dict__ = state
+
+    def __getstate__(self):
+        return self.__dict__
+
     def number_change(self):
         new_num = uuid.uuid4()
         self.number = new_num
@@ -76,14 +86,29 @@ class Car:
         producer = data['producer']
         number = data['number']
         mileage = data['mileage']
-        cr = Car(price=price, type=type, producer=producer, number=number, mileage=mileage)
+        cr = Car(price=price, type=type, producer=producer, number=str(number), mileage=mileage)
         return cr
 
     @staticmethod
     def to_json(obj: Car):
         data = {"price": obj.price, "type": obj.type, "producer": obj.producer,
-                "number": obj.number, "mileage": obj.mileage}
+                "number": str(obj.number), "mileage": obj.mileage}
         return data
+
+
+def from_json(data):
+    price = data['price']
+    type = data['type']
+    producer = data['producer']
+    number = data['number']
+    mileage = data['mileage']
+    cr = Car(price=price, type=type, producer=producer, number=str(number), mileage=mileage)
+    return cr
+
+
+def to_json(obj: Car):
+    data = {"price": obj.price, "type": obj.type, "producer": obj.producer, "number": str(obj.number), "mileage": obj.mileage}
+    return data
 
 # a = random.choice(CARS_TYPES)
 # b = random.choice(CARS_PRODUCER)
@@ -104,3 +129,57 @@ class Car:
 # car_1.number_change()
 #
 # print(car_1)
+# if __name__ == "__main__":
+
+
+c = random.randint(2, 6)
+autos = []
+for _ in range(0, c):
+    auto = Car(
+        price=random.randint(1000, 5000),
+        type=random.choice(CARS_TYPES),
+        producer=random.choice(CARS_PRODUCER),
+        number=uuid.uuid4(),
+        mileage=random.randint(1000, 15000)
+    )
+    autos.append(auto)
+print(autos)
+
+# if __name__ == "__main__":
+#
+#     ser_pr = ''
+#     try:
+#         ser_pr = json.dumps(autos, default=to_json)
+#         print("Success")
+#         print(type(ser_pr), ser_pr)
+#     except TypeError as e:
+#         print(e)
+# #
+#     try:
+#         load_pr = json.loads(ser_pr)
+#         print(type(load_pr), load_pr)
+#     except TypeError as e:
+#         print(e)
+#         #
+#         # # Should works fine. Use custom hook
+#     try:
+#         load_pr = json.loads(ser_pr, object_hook=from_json)
+#         print("Look here we have our programmer")
+#         print(type(load_pr), load_pr)
+#     except TypeError as e:
+#         print(e)
+#
+#     try:
+#         load_pr = json.loads(ser_pr, object_hook=from_json)
+#         print("Look here we have our programmer")
+#         print(type(load_pr), load_pr)
+#     except TypeError as e:
+#         print(e)
+# # Lets dump object to pickle
+# with open("data.txt", "wb") as file:
+#     pickle.dump(autos, file)
+#
+# # Lets load it
+# with open("data.txt", "rb") as file:
+#     restore_obj = pickle.load(file)
+#     print(restore_obj)
