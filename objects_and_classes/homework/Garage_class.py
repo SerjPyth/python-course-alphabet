@@ -24,6 +24,7 @@ class Garage:
             self.owner = None
         else:
             self.owner = uuid.uuid4()
+        # self.car = car
 
     def __contains__(self, item):
         return item in self.cars
@@ -54,6 +55,9 @@ class Garage:
     def __getstate__(self):
         return self.__dict__
 
+    def get_places(self):
+        return self.places
+
     def add_car(self, car):
         if len(self.cars) < self.places:
             self.cars.append(car)
@@ -66,14 +70,21 @@ class Garage:
             self.cars.remove(car)
 
     def hit_hat(self):
-        return sum(Car.price, self.cars)
+        total = []
+        i = self.places
+        while i != 0:
+            for car in self.cars:
+                single = car.get_price()
+                total.append(single)
+                i -= 1
+            return sum(total)
 
     @classmethod
     def from_json(cls, data):
-        town = data['price']
+        town = data['town']
         cars = data['cars']
-        places = data['producer']
-        owner = data['number']
+        places = data['places']
+        owner = data['owner']
         gr = Garage(town=town, cars=cars, places=places, owner=owner)
         return gr
 
@@ -83,18 +94,18 @@ class Garage:
         return data
 
 
-def from_json(data):
-    town = data['price']
-    cars = data['cars']
-    places = data['producer']
-    owner = data['number']
-    gr = Garage(town=town, cars=cars, places=places, owner=owner)
-    return gr
-
-
-def to_json(obj: Garage):
-    data = {"town": obj.town, "cars": obj.cars, "places": obj.places, "owner": obj.owner}
-    return data
+# def from_json(data):
+#     town = data['town']
+#     cars = data['cars']
+#     places = data['places']
+#     owner = data['owner']
+#     gr = Garage(town=town, cars=str(cars), places=places, owner=str(owner))
+#     return gr
+#
+#
+# def to_json(obj: Garage):
+#     data = {"town": obj.town, "cars": str(obj.cars), "places": obj.places, "owner": str(obj.owner)}
+#     return data
 
 # if __name__ == "__main__":
 a = random.choice(TOWNS)
@@ -117,48 +128,49 @@ for _ in range(0, c):
 
 # print(autos)
 aa = (Garage(a, autos, c, d))
+# print(pp.get_param())
+print(aa.hit_hat())
+# print(len(aa.cars))
+# aa.remove_car(autos[-1])
+# print(len(aa.cars))
 print(aa)
-print(len(aa.cars))
-aa.remove_car(autos[-1])
-print(len(aa.cars))
+# spec_car = Car(2566, "Van", "BMW", 1, 545)
+# aa.add_car(spec_car)
+# print(len(aa.cars))
 # print(aa)
-spec_car = Car(2566, "Van", "BMW", 1, 545)
-aa.add_car(spec_car)
-print(len(aa.cars))
-print(aa)
 
-if __name__ == "__main__":
-
-    ser_pr = ''
-    try:
-        ser_pr = json.dumps(aa, default=to_json)
-        print("Success")
-        print(type(ser_pr), ser_pr)
-    except TypeError as e:
-        print(e)
-
-    try:
-        load_pr = json.loads(ser_pr)
-        print(type(load_pr), load_pr)
-    except TypeError as e:
-        print(e)
-        #
-        # # Should works fine. Use custom hook
-    try:
-        load_pr = json.loads(ser_pr, object_hook=from_json)
-        print("Look here we have our programmer")
-        print(type(load_pr), load_pr)
-        print(load_pr.type)
-    except TypeError as e:
-        print(e)
-
-    try:
-        load_pr = json.loads(ser_pr, object_hook=from_json)
-        print("Look here we have our programmer")
-        print(type(load_pr), load_pr)
-        print(load_pr.town)
-    except TypeError as e:
-        print(e)
+# if __name__ == "__main__":
+#
+#     ser_pr = ''
+#     try:
+#         ser_pr = json.dumps(aa, default=to_json)
+#         print("Success")
+#         print(type(ser_pr), ser_pr)
+#     except TypeError as e:
+#         print(e)
+#
+#     try:
+#         load_pr = json.loads(ser_pr)
+#         print(type(load_pr), load_pr)
+#     except TypeError as e:
+#         print(e)
+#         #
+#         # # Should work fine. Use custom hook
+#     try:
+#         load_pr = json.loads(ser_pr, object_hook=from_json)
+#         print("Look here we have our programmer")
+#         print(type(load_pr), load_pr)
+#         print(load_pr.places)
+#     except TypeError as e:
+#         print(e)
+#
+#     try:
+#         load_pr = json.loads(ser_pr, object_hook=from_json)
+#         print("Look here we have our programmer")
+#         print(type(load_pr), load_pr)
+#         print(load_pr.town)
+#     except TypeError as e:
+#         print(e)
 # with open("data2.txt", "wb") as file:
 #     pickle.dump(aa, file)
 #

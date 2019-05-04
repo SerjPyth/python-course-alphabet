@@ -1,5 +1,4 @@
 from __future__ import annotations
-# from Garage_class import Garage
 import uuid
 import random
 import pickle
@@ -14,8 +13,8 @@ class WrongException(Exception):
 class Car:
 
     def __init__(self, price, type, producer, number, mileage):
-        self.price = str(float(price)) + "$"
-        # self.price = float(price)
+        # self.price = str(float(price)) + "$"
+        self.price = float(price)
         self.type = type
         if self.type in CARS_TYPES:
             self.type = type
@@ -78,6 +77,9 @@ class Car:
         new_num = uuid.uuid4()
         self.number = new_num
         return self.number
+
+    def get_price(self):
+        return self.price
 
     @classmethod
     def from_json(cls, data):
@@ -143,8 +145,8 @@ for _ in range(0, c):
         mileage=random.randint(1000, 15000)
     )
     autos.append(auto)
-print(autos)
-
+# print(autos)
+# print(auto.get_price())
 # if __name__ == "__main__":
 #
 #     ser_pr = ''

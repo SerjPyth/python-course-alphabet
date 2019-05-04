@@ -32,8 +32,15 @@ class Cesar:
     def __getstate__(self):
         return self.__dict__
 
-    def hit_hat(self):
-        return sum(Car.price, Garage.cars)
+    def total_hit_hat(self):
+        total = []
+        i = len(self.garages)
+        while i != 0:
+            for garage in self.garages:
+                single = garage.hit_hat()
+                total.append(single)
+                i -= 1
+            return sum(total)
 
     def garage_count(self):
         for i in self.garages:
