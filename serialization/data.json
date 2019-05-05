@@ -1,0 +1,23 @@
+[
+    {
+        "price": 1719.0,
+        "type": "Wagon",
+        "producer": "BENTLEY",
+        "number": "46b576e8-e459-411f-a4b5-58701ee2bdae",
+        "mileage": 1521.0
+    },
+    {
+        "price": 2898.0,
+        "type": "Truck",
+        "producer": "Dodge",
+        "number": "03ca7a27-0aa2-413d-8fca-bfdb7a79b132",
+        "mileage": 13813.0
+    },
+    {
+        "price": 4729.0,
+        "type": "Luxury Car",
+        "producer": "Chevrolet",
+        "number": "85b71416-bfac-405b-8a5b-a5a5ba27b24c",
+        "mileage": 10216.0
+    }
+]

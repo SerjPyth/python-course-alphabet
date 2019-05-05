@@ -1,0 +1,5 @@
+{
+    "name": "Pablo",
+    "register_id": "53b941b6-996e-47e9-bf51-e552f7d82592",
+    "garages": "[Garages('Paris', '[Car(3234.0, 'Truck', 'Chery', cce9fb3c-2ce6-4481-8fea-1bcce8f275f6, 2116.0), Car(4978.0, 'Diesel', 'Chevrolet', fc29c259-7997-44b4-97bc-a1072cae3cb1, 10936.0)]', 2, b9d0038c-05d9-44e8-ae06-326c91590fbb), Garages('Paris', '[Car(1776.0, 'Crossover', 'Dodge', fda5c1cd-fdd8-4b2c-9e67-c688be92dd1a, 3910.0), Car(2566.0, 'Van', 'BMW', 79a7d2f3-e87f-4e51-8e11-386d16caf74f, 545.0)]', 2, 5d84e571-7d1c-42e2-b547-41afe8ca9856), Garages('Paris', '[Car(3234.0, 'Truck', 'Chery', cce9fb3c-2ce6-4481-8fea-1bcce8f275f6, 2116.0), Car(4978.0, 'Diesel', 'Chevrolet', fc29c259-7997-44b4-97bc-a1072cae3cb1, 10936.0)]', 2, 951f4980-5997-46d7-b7c5-86abae504fb8)]"
+}
