@@ -24,7 +24,7 @@ class Garage:
             self.owner = None
         else:
             self.owner = uuid.uuid4()
-        # self.car = car
+        self.current = 0
 
     def __contains__(self, item):
         return item in self.cars
@@ -54,6 +54,12 @@ class Garage:
 
     def __getstate__(self):
         return self.__dict__
+
+    def get_len_cars(self):
+        return len(self.cars)
+
+    def get_cars(self):
+        return self.cars
 
     def get_places(self):
         return self.places
@@ -129,11 +135,11 @@ for _ in range(0, c):
 # print(autos)
 aa = (Garage(a, autos, c, d))
 # print(pp.get_param())
-print(aa.hit_hat())
-# print(len(aa.cars))
+# print(aa.hit_hat())
+# print(aa.get_cars())
 # aa.remove_car(autos[-1])
 # print(len(aa.cars))
-print(aa)
+# print(aa)
 # spec_car = Car(2566, "Van", "BMW", 1, 545)
 # aa.add_car(spec_car)
 # print(len(aa.cars))

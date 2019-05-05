@@ -27,6 +27,7 @@ class Car:
             raise WrongException
         self.number = uuid.uuid4()
         self.mileage = str(float(mileage)) + " miles"
+        self.current = 0
         # self.mileage = float(mileage)
 
     def __iter__(self):
