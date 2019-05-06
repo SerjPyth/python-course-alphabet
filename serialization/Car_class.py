@@ -18,7 +18,7 @@ class Car:
     yaml_tag = u'!Car'
 
     def __init__(self, price, type, producer, number, mileage):
-        # self.price = str(float(price)) + "$"
+
         self.price = float(price)
         self.type = type
         if self.type in CARS_TYPES:
@@ -31,7 +31,6 @@ class Car:
         else:
             raise WrongException
         self.number = uuid.uuid4()
-        # self.mileage = str(float(mileage)) + " miles"
         self.current = 0
         self.mileage = float(mileage)
 
@@ -91,6 +90,7 @@ class Car:
     def to_yaml(cls, representer, node):
         return representer.represent_scalar(cls.yaml_tag, u'{.price}_{.type}_{.producer}_{.number}_{.mileage}'
                                             .format(node, node, node, node, node))
+
     @classmethod
     def from_yaml(cls, constructor, node):
         return cls(*node.value.split('_'))
@@ -111,7 +111,7 @@ class Car:
                 "number": str(obj.number), "mileage": obj.mileage}
         return data
 
-#
+
 def from_json(data):
     price = data['price']
     type = data['type']

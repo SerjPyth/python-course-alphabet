@@ -9,6 +9,7 @@ import pickle
 import ruamel.yaml
 import sys
 
+
 class Cesar:
 
     yaml_tag = u'!Cesar'
