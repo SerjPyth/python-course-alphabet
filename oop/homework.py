@@ -345,29 +345,50 @@ class House:
     """
 
     def __init__(self):
-        __walls = []
-        __windows = []
-        __roof = None
-        __door = None
+        self.__walls = []
+        self.__windows = []
+        self.__roof = None
+        self.__door = None
 
+    def create_wall(self, width, height):
+        wa = Wall(width, height)
+        if width is 0 or height is 0:
+            print("Value must not be 0")
+        elif self.get_count_of_walls() > 4:
+            print("Our house can not have more than 4 walls")
+        else:
+            self.__walls.append(wa)
 
-    def create_wall(self):
-        pass
+    def create_roof(self, width, height, roof_type):
+        r = Roof(width, height, roof_type)
+        if width is 0 or height is 0:
+            print("Value must not be 0")
+        elif self.__roof is not None:
+            print("The house can not have two roofs")
+        else:
+            self.__roof = r
 
-    def create_roof(self):
-        pass
+    def create_window(self, width, height):
+        wi = Window(width, height)
+        if width is 0 or height is 0:
+            print("Value must not be 0")
+        else:
+            self.__windows.append(wi)
 
-    def create_window(self):
-        pass
-
-    def create_door(self):
-        pass
+    def create_door(self, width, height):
+        do = Door(width, height)
+        if width is 0 or height is 0:
+            print("Value must not be 0")
+        elif self.__door is not None:
+            print("The house can not have two doors")
+        else:
+            self.__door = do
 
     def get_count_of_walls(self):
-        pass
+        return len(self.__walls)
 
     def get_count_of_windows(self):
-        pass
+        return len(self.__windows)
 
     def get_door_price(self):
         pass
@@ -395,3 +416,23 @@ class House:
 
     def get_room_square(self):
         pass
+
+
+h = House()
+h.create_wall(5, 10)
+h.create_wall(5, 10)
+h.create_wall(5, 10)
+h.create_wall(5, 10)
+# h.create_wall(5, 10)
+# print(h.get_count_of_walls())
+h.create_roof(10, 5, "single_sided")
+# h.create_roof(10, 5, "single_sided")
+# h.create_roof(0, 5, "single_sided")
+h.create_window(1, 2)
+# print(h.get_count_of_windows())
+h.create_window(1, 2)
+# h.create_window(0, 2)
+# print(h.get_count_of_windows())
+h.create_door(2, 1.5)
+h.create_door(0, 1.5)
+# h.create_door(2, 1.5)
