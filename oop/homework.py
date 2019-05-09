@@ -1,4 +1,5 @@
 from __future__ import annotations
+import math
 
 
 class Cat:
@@ -105,22 +106,23 @@ class Cat:
         return self.average_speed
 
 
-a = Cat(12)
-print(a.get_saturation_level())
-print(a.run(5))
-print(a.get_average_speed())
-print(a.get_saturation_level())
-a.eat("milk")
-a.eat("banana")
-a.eat("fodder")
-a.eat("fodder")
-a.eat("fodder")
-a.eat("fodder")
-a.eat("apple")
-a.eat("apple")
-print(a.get_saturation_level())
+# a = Cat(12)
+# print(a.get_saturation_level())
+# print(a.run(5))
+# print(a.get_average_speed())
+# print(a.get_saturation_level())
+# a.eat("milk")
+# a.eat("banana")
+# a.eat("fodder")
+# a.eat("fodder")
+# a.eat("fodder")
+# a.eat("fodder")
+# a.eat("apple")
+# a.eat("apple")
+# print(a.get_saturation_level())
 
-class Cheetah:
+
+class Cheetah(Cat):
     """
     * Inherit from class Cat
 
@@ -130,10 +132,25 @@ class Cheetah:
 
     * Redefine method _set_average_speed
       if age less or eq 5 return 90
-      if age between 5 and 15(including) return 90
+      if age between 5 and 15(including) return 75
       if age grosser 15(not including) return 40
 
     """
+    def eat(self, product):
+        if product is "gazelle":
+            self._increase_saturation_level(30)
+        elif product is "rabbit":
+            self._increase_saturation_level(15)
+        else:
+            print("I won`t eat that!")
+
+    def _set_average_speed(self):
+        if self.age <= 5:
+            return 90
+        elif 5 < self.age < 16:
+            return 75
+        else:
+            return 40
 
 
 class Wall:
@@ -148,17 +165,26 @@ class Wall:
       Example:
           count of lines in roll eq roll length in meters divide height of the wall (use rounding down)
           count of lines eq width of the wall divide roll width in meters
-          number of rolls of wallpaper eq count of lines divide  count of lines in roll
+          number of rolls of wallpaper eq count of lines divide count of lines in roll
     """
 
     def __init__(self, width, height):
-        pass
+        self.width = float(width)
+        self.height = float(height)
 
     def wall_square(self):
-        pass
+        return self.width * self.height
 
     def number_of_rolls_of_wallpaper(self, roll_width_m, roll_length_m):
-        pass
+        roll_h = math.floor(roll_length_m / self.height)
+        roll_w = self.width / roll_width_m
+        rolls = roll_w / roll_h
+        return math.ceil(rolls)
+
+
+# w = Wall(15, 5)
+# print(w.wall_square())
+# print(w.number_of_rolls_of_wallpaper(1, 10))
 
 
 class Roof:
@@ -172,11 +198,23 @@ class Roof:
 
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, width, height, roof_type):
+        self.width = width
+        self.height = height
+        self.roof_type = roof_type
 
     def roof_square(self):
-        pass
+        if self.roof_type is "gable":
+            return (self.width * self.height) * 2
+        elif self.roof_type is "single_pitch":
+            return self.width * self.height
+        else:
+            print("Sorry there is only two types of roofs")
+            raise ValueError
+
+
+# c = Roof(3, 10, "strpitch")
+# print(c.roof_square())
 
 
 class Window:
@@ -186,12 +224,15 @@ class Window:
        * Implement method window_square which return result of simple square formula of rectangle
 
     """
-
-    def __init__(self):
-        pass
+    def __init__(self, width, height):
+        self.width = float(width)
+        self.height = float(height)
 
     def window_square(self):
-        pass
+        return self.width * self.height
+
+# w = Window(2, 1.5)
+# print(w.window_square())
 
 
 class Door:
@@ -201,7 +242,7 @@ class Door:
 
      * Implement method door_square which return result of simple square formula of rectangle
 
-     * Implement method door_square which receives material value as a parameter
+     * Implement method door_price which receives material value as a parameter
        if material eq wood return door_square multiplied on wood_price
        if material eq metal return door_square multiplied on metal_price
        if material value is another one (not metal or wood) raise ValueError "Sorry we don't have such material"
@@ -211,21 +252,38 @@ class Door:
      *  Implement method update_metal_price which receives new_price value and updates your old price
 
     """
-
-    def __init__(self):
-        pass
+    def __init__(self, width, height):
+        self.width = float(width)
+        self.height = float(height)
+        self.wood_price = 10
+        self.metal_price = 3
 
     def door_square(self):
-        pass
+        return self.width * self.height
 
-    def door_price(self):
-        pass
+    def door_price(self, material):
+        if material is "wood":
+            return self.wood_price * self.door_square()
+        elif material is "metal":
+            return self.metal_price * self.door_square()
+        else:
+            print("Sorry we don`t have such material")
+            raise ValueError
 
-    def update_wood_price(self):
-        pass
+    def update_wood_price(self, new_price):
+        self.wood_price = new_price
+        return self.wood_price
 
-    def update_metal_price(self):
-        pass
+    def update_metal_price(self, new_price):
+        self.metal_price = new_price
+        return self.metal_price
+
+
+# d = Door(1.5, 2)
+# print(d.door_square())
+# print(d.door_price("bro"))
+# d.update_metal_price(5)
+# print(d.door_price("metal"))
 
 
 class House:
@@ -287,7 +345,11 @@ class House:
     """
 
     def __init__(self):
-        pass
+        __walls = []
+        __windows = []
+        __roof = None
+        __door = None
+
 
     def create_wall(self):
         pass
