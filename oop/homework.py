@@ -390,49 +390,75 @@ class House:
     def get_count_of_windows(self):
         return len(self.__windows)
 
-    def get_door_price(self):
-        pass
+    def get_door_price(self, material):
+        return Door.door_price(self.__door, material)
 
-    def update_wood_price(self):
-        pass
+    def update_wood_price(self, new_price):
+        return Door.update_wood_price(self.__door, new_price)
 
-    def update_metal_price(self):
-        pass
+    def update_metal_price(self, new_price):
+        return Door.update_metal_price(self.__door, new_price)
 
     def get_roof_square(self):
-        pass
+        return Roof.roof_square(self.__roof)
 
     def get_walls_square(self):
-        pass
+        total = []
+        for wall in self.__walls:
+            single = Wall.wall_square(wall)
+            total.append(single)
+        return sum(total)
 
     def get_windows_square(self):
-        pass
+        total = []
+        for window in self.__windows:
+            single = Window.window_square(window)
+            total.append(single)
+        return sum(total)
 
     def get_door_square(self):
-        pass
+        return Door.door_square(self.__door)
 
-    def get_number_of_rolls_of_wallpapers(self):
-        pass
+    def get_number_of_rolls_of_wallpapers(self, roll_width_m, roll_length_m):
+        total = []
+        if roll_width_m is 0 or roll_length_m is 0:
+            print("Sorry length must be not 0")
+        else:
+            for wall in self.__walls:
+                single = Wall.number_of_rolls_of_wallpaper(wall, roll_width_m, roll_length_m)
+                total.append(single)
+            return sum(total)
 
     def get_room_square(self):
-        pass
+        return self.get_walls_square() - (self.get_windows_square() + self.get_door_square())
 
 
 h = House()
 h.create_wall(5, 10)
-h.create_wall(5, 10)
+h.create_wall(1, 10)
 h.create_wall(5, 10)
 h.create_wall(5, 10)
 # h.create_wall(5, 10)
 # print(h.get_count_of_walls())
-h.create_roof(10, 5, "single_sided")
+h.create_roof(10, 5, "single_pitch")
 # h.create_roof(10, 5, "single_sided")
 # h.create_roof(0, 5, "single_sided")
 h.create_window(1, 2)
 # print(h.get_count_of_windows())
-h.create_window(1, 2)
+h.create_window(1, 3)
 # h.create_window(0, 2)
 # print(h.get_count_of_windows())
 h.create_door(2, 1.5)
-h.create_door(0, 1.5)
+# h.create_door(0, 1.5)
 # h.create_door(2, 1.5)
+h.get_door_price("wood")
+# print(h.get_door_price("wood"))
+# print(h.get_door_price("metal"))
+h.update_wood_price(5)
+# print(h.get_door_price("wood"))
+# print(h.get_roof_square())
+print(h.get_walls_square())
+print(h.get_windows_square())
+print(h.get_door_square())
+# print(h.get_number_of_rolls_of_wallpapers(1, 10))
+print(h.get_room_square())
