@@ -1,7 +1,7 @@
 import random
 import unittest
 
-from build_in_methods_iterators.homework import (
+from homework import (
     task_4_min_value_integers,
     task_5_min_value_strings,
     task_6_min_value_list_of_dicts,
@@ -177,6 +177,14 @@ class GeneratorTestCases(unittest.TestCase):
         for i in expected_result:
             self.assertEqual(i, next(actual_result))
 
+    # def test_task_bonus(self):
+    #     expected_result = list(range(1, 10))
+    #     actual_result = task_bonus_generator()
+    #     for i in expected_result:
+    #         actual_simple_number = next(actual_result)
+    #         print("Simple number that I return from my gen ", actual_simple_number)
+    #         print("What test is expected from me ", i)
+    #         self.assertEqual(i, next(actual_simple_number))
 
 class FilterTestCases(unittest.TestCase):
 
