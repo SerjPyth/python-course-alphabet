@@ -20,18 +20,10 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExample07">
-            <ul class="nav navbar-nav ml-auto">
-            {{ nav_link('home_page', 'Home') }}
-            {{ nav_link('movies_page', 'Movies') }}
-{#                <ul class="navbar-nav ml-auto">#}
-{#                <li class="nav-item active">#}
-{#                     {{ nav_link('home_page', 'Home') }}#}
-{#                    <a class="nav-link" href="/">Home</a>#}
-{#                </li>#}
-{#                <li class="nav-item">#}
-{#                    {{ nav_link('movies_page', 'Movies') }}#}
-{#                    <a class="nav-link" href="/movies">Movies</a>#}
-{#                </li>#}
+                <li class="nav navbar-nav ml-auto">
+                    {{ nav_link('home_page', 'Home') }}
+                    {{ nav_link('movies_page', 'Movies') }}
+                </li>
             </ul>
         </div>
     </div>
@@ -45,7 +37,6 @@
     {% endblock movie %}
     {% block movies %}
     {% endblock movies %}
-    {#  Insert any templates here  #}
 </div>
 
 
