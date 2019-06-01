@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+{% block title %} About {% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <div>
+        <h1 class="about-title">About Page</h1>
+        <a href="/home">Home</a>
+    </div>
+    {% if request.args.get('name') %}
+         <p>{{ "Name is: %s" % request.args.get('name') }}</p>
+    {% endif %}
+
+    <div id="page-container">
+        <div id="content-wrap">
+            <footer id="footer">
+                <p>Made by Serj Mykhalchyshyn.</p>
+            </footer>
+        </div>
+    </div>
+
+{% endblock %}

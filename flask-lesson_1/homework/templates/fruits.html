@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+{% block title %} Fruits {% endblock %}
+{% block content %}
+    <div>
+        <h1 class="about-title">Fruits list</h1>
+        <a href="/home">Home</a>
+    </div>
+    {% for elem in values %}
+        <p>{{ elem }}</p>
+    {% endfor %}
+
+{% endblock %}

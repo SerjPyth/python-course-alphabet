@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% block title %} About {% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <h1>Home page</h1>
+    <h3>Our pages: </h3>
+    <ul>
+        <li><a href="/vegetables"> Vegetables </a></li>
+        <li><a href="/fruits"> Fruits </a></li>
+        <li><a href="/about"> Go to About</a></li>
+        <li><a href="/wrong_way"> Wrong way </a></li>
+    </ul>
+{% endblock %}
