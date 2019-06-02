@@ -5,7 +5,8 @@
         <h1 class="about-title">Vegetables list</h1>
         <a href="/home">Home</a>
     </div>
-    {% for elem in values %}
+    <ol>{% for elem in values %}
         <p>{{ elem }}</p>
     {% endfor %}
+    </ol>
 {% endblock %}

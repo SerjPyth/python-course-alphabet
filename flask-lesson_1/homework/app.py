@@ -1,10 +1,15 @@
 import os
 
-from flask import Flask, request, render_template, jsonify, make_response, abort, url_for, session
+from flask import Flask, request, render_template, abort, url_for
 from werkzeug.utils import secure_filename, redirect
 
 
 app = Flask(__name__)
+
+
+@app.route('/')
+def welcome_home():
+    return redirect(url_for("home_page"))
 
 
 @app.route('/home')
@@ -98,29 +103,12 @@ def test_redirect():
 
 @app.route("/test_abort")
 def test_abort():
-    abort(501, "Our program has an error")
+    abort(501, "We have a problem...")
 
 
 @app.errorhandler(501)
 def error_501_handler(error):
     return render_template("error_501.html")
-
-
-
-@app.errorhandler(418)
-def error_418_handler(error):
-    return render_template("error_418.html", error=error)
-
-
-app.secret_key = b'"\xaa;\x0b\x12\x8a\xa1V+\x16\xc5\x91\xfb,\xcb#'
-
-
-@app.route("/test_session")
-def test_session():
-    app.logger.warning("this is warning")
-    app.logger.error("This is error")
-    session["key"] = "value"
-    return "hello"
 
 
 if __name__ == '__main__':
