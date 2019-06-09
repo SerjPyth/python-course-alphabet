@@ -31,22 +31,40 @@ class Car:
 
     yaml_tag = u'!Car'
 
-    def __init__(self, price, type, producer, number, mileage):
+    def __init__(self, price, type, producer, mileage, number=None):
 
-        self.price = float(price)
-        self.type = type
-        if self.type in CARS_TYPES:
-            self.type = type
-        else:
-            raise WrongException
-        self.producer = producer
-        if self.producer in CARS_PRODUCER:
-            self.producer = producer
-        else:
-            raise WrongException
-        self.number = uuid.uuid4()
+        self.price = self._convert_to_float(price)
+        self.type = self.type_checking(type)
+        self.producer = self.producer_checking(producer)
+        self.number = uuid.uuid4() if number is None else number
         self.current = 0
-        self.mileage = float(mileage)
+        self.mileage = self._convert_to_float(mileage)
+
+    @staticmethod
+    def _convert_to_float(value):
+        try:
+            if value is True or value is False:
+                raise TypeError
+            return float(value)
+        except TypeError:
+            return None
+
+    @staticmethod
+    def type_checking(type):
+        if type in CARS_TYPES:
+            return type
+        else:
+            raise ValueError("Type should be an instance of CAR_TYPES! Please, reconsider.")
+
+    @staticmethod
+    def producer_checking(producer):
+        if producer in CARS_PRODUCER:
+            return producer
+        else:
+            raise ValueError("Producer should be an instance of CARS_PRODUCER! When will you learn?")
+
+    def equality(self, another):
+        return vars(self) == vars(another)
 
     def __iter__(self):
         return self
@@ -92,10 +110,10 @@ class Car:
     def __getstate__(self):
         return self.__dict__
 
-    def number_change(self):
-        new_num = uuid.uuid4()
-        self.number = new_num
-        return self.number
+    def number_change(self, new_number):
+        uuid.UUID(new_number, version=4)
+        self.number = new_number
+        return "Number has been successfully changed"
 
     def get_price(self):
         return self.price
@@ -130,22 +148,42 @@ class Garage:
 
     yaml_tag = u'!Garage'
 
-    def __init__(self, town, cars, places, owner=None):
-        self.town = town
-        if self.town in TOWNS:
-            self.town = town
-        else:
-            raise WrongException
-        if cars is None:
-            self.cars = []
-        else:
-            self.cars = cars
-        self.places = int(places)
-        if owner is None:
-            self.owner = None
-        else:
-            self.owner = uuid.uuid4()
+    def __init__(self, town, *cars, places, owner=None):
+        self.town = self.town_check(town)
+        self.cars = [car for car in cars]
+        self.places = self._convert_to_int(places)
+        self.owner = self.owner_check(owner)
         self.current = 0
+
+    @staticmethod
+    def owner_check(owner):
+        if owner is None:
+            return owner
+        else:
+            try:
+                uuid.UUID(owner, version=4)
+                return owner
+            except AttributeError:
+                return 'You failed! Try again with a string.'
+            except ValueError:
+                return 'Failed again! Google how uuid should look like.'
+
+
+    @staticmethod
+    def town_check(town):
+        if town in TOWNS:
+            return town
+        else:
+            raise ValueError("Town should be instance of TOWNS! Treat yourself with a bit of geography")
+
+    @staticmethod
+    def _convert_to_int(value):
+        try:
+            if value is True or value is False:
+                raise TypeError
+            return int(value)
+        except TypeError:
+            return None
 
     def __contains__(self, item):
         return item in self.cars
@@ -185,16 +223,22 @@ class Garage:
     def get_places(self):
         return self.places
 
+    def free_place(self):
+        return self.places - len(self.cars)
+
     def add_car(self, car):
         if len(self.cars) < self.places:
             self.cars.append(car)
+            return "Car has been added."
         else:
-            print("No free space left!")
-            raise WrongException
+            raise ValueError("No free space left!")
 
     def remove_car(self, car):
         if car in self.cars:
             self.cars.remove(car)
+            return "You just deleted that car."
+        else:
+            return "No such car."
 
     def hit_hat(self):
         total = []
