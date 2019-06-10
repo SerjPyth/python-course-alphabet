@@ -20,6 +20,8 @@ Advanced
 
 from __future__ import annotations
 import uuid
+import itertools
+from typing import List
 from constants import *
 
 
@@ -31,7 +33,7 @@ class Car:
 
     yaml_tag = u'!Car'
 
-    def __init__(self, price, type, producer, mileage, number=None):
+    def __init__(self, price, type, producer, mileage, number=None, garage_numb=None):
 
         self.price = self._convert_to_float(price)
         self.type = self.type_checking(type)
@@ -39,6 +41,7 @@ class Car:
         self.number = uuid.uuid4() if number is None else number
         self.current = 0
         self.mileage = self._convert_to_float(mileage)
+        self.garage_numb = garage_numb
 
     @staticmethod
     def _convert_to_float(value):
@@ -147,12 +150,15 @@ class Car:
 class Garage:
 
     yaml_tag = u'!Garage'
+    cars = List[Car]
+    garage_number = itertools.count()
 
-    def __init__(self, town, *cars, places, owner=None):
+    def __init__(self, town, *cars, places, owner=None, number=None):
         self.town = self.town_check(town)
         self.cars = [car for car in cars]
         self.places = self._convert_to_int(places)
         self.owner = self.owner_check(owner)
+        self.number = next(Garage.garage_number) if number is None else number
         self.current = 0
 
     @staticmethod
@@ -223,13 +229,17 @@ class Garage:
     def get_places(self):
         return self.places
 
-    def free_place(self):
+    def free_places(self):
         return self.places - len(self.cars)
 
     def add_car(self, car):
-        if len(self.cars) < self.places:
-            self.cars.append(car)
-            return "Car has been added."
+        if self.free_places() > 0:
+            if car.garage_numb is None:
+                car.garage_numb = self.number
+                self.cars.append(car)
+                return "Car has been added."
+            else:
+                raise ValueError("This car is already in other garage")
         else:
             raise ValueError("No free space left!")
 
@@ -278,13 +288,24 @@ class Cesar:
 
     yaml_tag = u'!Cesar'
 
-    def __init__(self, name, register_id, garages=None):
+    def __init__(self, name, *garages, register_id=None):
         self.name = str(name)
-        self.register_id = uuid.uuid4()
-        if garages is None:
-            self.garages = []
+        self.register_id = uuid.uuid4() if register_id is None else register_id
+        self.garages = self.garages_check(garages)
+
+    def garages_check(self, garages):
+        if isinstance(garages, bool) or garages is None:
+            raise TypeError("Value should be bool or None")
+        if len(garages) > 0:
+            real_garages = list()
+            for garage in garages:
+                if isinstance(garage, Garage):
+                    real_garages.append(garage)
+                else:
+                    raise AttributeError('It should be a Garage, not list, tuple, set, dict, int or float')
+            return real_garages
         else:
-            self.garages = garages
+            return []
 
     def __contains__(self, item):
         return item in self.garages
@@ -303,14 +324,7 @@ class Cesar:
         return self.__dict__
 
     def total_hit_hat(self):
-        total = []
-        i = len(self.garages)
-        while i != 0:
-            for garage in self.garages:
-                single = garage.hit_hat()
-                total.append(single)
-                i -= 1
-            return sum(total)
+        return sum([sum([car.price for car in garage.cars]) for garage in self.garages])
 
     def garage_count(self):
         i = 0
@@ -327,23 +341,40 @@ class Cesar:
             cars_num += garage.get_len_cars()
         return cars_num
 
-    def add_car_ces(self, garage, car):
-        if garage in self.garages:
-            if garage.get_len_cars() < garage.get_places():
-                garage.get_cars().append(car)
+    def max_free_spaces(self):
+        if len(self.garages) > 0:
+            all_garages = {garage.number: (garage.places - len(garage.cars)) for garage in self.garages}
+            max_free_spaces_garage = {key: value for (key, value) in all_garages.items() if
+                                      value == max(all_garages.values())}
+            if list(max_free_spaces_garage.values())[0] > 0:
+                return max_free_spaces_garage
             else:
-                print("No free space left!")
-                raise WrongException
-        elif garage is None:
-            for garage in self.garages:
-                while garage.get_len_cars() < garage.get_places():
-                    garage.get_cars().append(car)
-            some_garage = garage.get_len_cars()
-            min_garage = min(some_garage for garage in self.garages)
-            min_garage.get_cars().append(car)
+                return "No free spaces left in the garages. Hope you`re proud of yourself"
         else:
-            print("No such garage in ownership")
-            raise WrongException
+            return "Seems like there are no garages belonging to you"
+
+    def add_car(self, car, chosen_garage=None):
+        if chosen_garage is None and isinstance(car, Car):
+            emptiest_garage = self.max_free_spaces()
+            if isinstance(emptiest_garage, str):
+                return emptiest_garage
+            else:
+                for garage in self.garages:
+                    if garage.number == [x for x in emptiest_garage.keys()][0]:
+                        garage.add_car(car)
+                        return f"Car has been added to garage {garage.number}"
+        elif isinstance(chosen_garage, Garage) and isinstance(car, Car) and chosen_garage in self.garages:
+            if chosen_garage.free_places() > 0:
+                chosen_garage.add_car(car)
+                return f"Car has been added to garage {chosen_garage.number}"
+            else:
+                return f"No free spaces in the garage {chosen_garage.number}"
+        else:
+            if isinstance(chosen_garage, Garage) and isinstance(car, Car):
+                return "Get out of here! You just came to wrong garage, son!"
+            else:
+                raise AttributeError('Car should be an instance of Car and garage should be an instance of Garage')
+
 
     @classmethod
     def to_yaml(cls, representer, node):
