@@ -58,6 +58,7 @@ class WrongException(Exception):
 
 class Car:
 
+
     def __init__(self, price, type, producer, mileage):
         self.price = float(price)
         self.type = type
@@ -243,7 +244,7 @@ class Cesar:
             return sum(total)
 
     def garage_count(self):
-        return len(self.garages)
+       return len(self.garages)
 
     def cars_count(self):
         cars_num = 0

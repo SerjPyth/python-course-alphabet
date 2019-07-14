@@ -1,3 +1,15 @@
+
+    name = data['name']
+    language = data['language']
+    position = data['position']
+    pr = Programmer(name=name, language=language, position=position)
+    pr.enough_coffee = data.get('enough_coffee', False)
+    return pr
+
+
+def to_json(obj: Programmer):
+    data = {"name": obj.name, "language": obj.language, "position": obj.position}
+    return data
 # Serialization 
     
 ## JSON
