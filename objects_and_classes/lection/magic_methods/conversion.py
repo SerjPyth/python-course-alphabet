@@ -19,13 +19,10 @@ class AwesomeNumber:
         return other.value == self.value
 
     def __le__(self, other: AwesomeNumber):
-        return self.value <= other.value
+        return other.value <= self.value
 
     def __lt__(self, other: AwesomeNumber):
-        return self.value < other.value
-
-    def __ge__(self, other):
-        return self.value >= other.value
+        return other.value < self.value
 
 
 class AwesomeString:
@@ -41,15 +38,14 @@ class AwesomeString:
 
 if __name__ == "__main__":
     number = AwesomeNumber(2)
-    default_int = int(2)
+
     print(number)
-    print(default_int)
+
     # Slices
     some_list = ["Den", "Alex", "Vitalka", "Oksana"]
     print(some_list[number])
 
     # Comparing values
     first_number = AwesomeNumber(2)
-    second_number = AwesomeNumber(9)
+    second_number = AwesomeNumber(2)
 
-    print(first_number > second_number)

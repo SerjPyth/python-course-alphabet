@@ -27,6 +27,7 @@ class Cat:
 
     * Implement method run it receives hours value
       Calculate run km per hours remember that you have average_speed value
+
       Than if your cat run less or eq than 25 _reduce_saturation_level with value 2
       if it runs between 25(not including) and 50(including) than _reduce_saturation_level with value 5
       if it runs between 50(not including) and 100(including) than _reduce_saturation_level with value 15
@@ -43,6 +44,7 @@ class Cat:
     """
 
     def __init__(self, age):
+
         self.age = age
         self.average_speed = self._set_average_speed()
         self.saturation_level = 50
@@ -123,6 +125,30 @@ class Cat:
 
 
 class Cheetah(Cat):
+=======
+        pass
+
+    def eat(self, product):
+        pass
+
+    def _reduce_saturation_level(self, value):
+        pass
+
+    def _increase_saturation_level(self, value):
+        pass
+
+    def _set_average_speed(self):
+        pass
+
+    def run(self, hours):
+        pass
+
+    def get_saturation_level(self):
+        pass
+
+    def get_average_speed(self):
+        pass
+
     """
     * Inherit from class Cat
 
@@ -198,6 +224,7 @@ class Roof:
 
     """
 
+
     def __init__(self, width, height, roof_type):
         self.width = width
         self.height = height
@@ -224,6 +251,7 @@ class Window:
        * Implement method window_square which return result of simple square formula of rectangle
 
     """
+
     def __init__(self, width, height):
         self.width = float(width)
         self.height = float(height)
@@ -242,6 +270,7 @@ class Door:
 
      * Implement method door_square which return result of simple square formula of rectangle
 
+
      * Implement method door_price which receives material value as a parameter
        if material eq wood return door_square multiplied on wood_price
        if material eq metal return door_square multiplied on metal_price
@@ -249,10 +278,8 @@ class Door:
 
      *  Implement method update_wood_price which receives new_price value and updates your old price
 
-     *  Implement method update_metal_price which receives new_price value and updates your old price
-
-    """
-    def __init__(self, width, height):
+     *  Implement method update_metal_price which receives new_price value and updates your ol   
+     def __init__(self, width, height):
         self.width = float(width)
         self.height = float(height)
         self.wood_price = 10

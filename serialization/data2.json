@@ -1,0 +1,6 @@
+{
+    "town": "Kiev",
+    "cars": "[Car(3302.0, 'Crossover', 'Buick', 2e80c85d-1cb5-4241-b559-ef5b3627e97c, 13285.0), Car(2925.0, 'Van', 'Chevrolet', be08ef1d-5979-44f5-8271-d7fc63adce36, 12562.0), Car(2977.0, 'Sports Car', 'BENTLEY', 513e1b19-bb18-423d-a279-817f60030b06, 14804.0), Car(2899.0, 'Diesel', 'Ford', 8205eddf-419a-403f-bd48-3960b26f504b, 14802.0), Car(2485.0, 'Coupe', 'Chevrolet', b67b773f-c97c-43c7-a93d-3a5413125dcf, 14416.0), Car(4048.0, 'Wagon', 'Chevrolet', a02eba9f-2372-4c4e-ab4a-4939a94c8f4b, 8788.0)]",
+    "places": 6,
+    "owner": "22184a82-86b5-48c0-8ad4-1938093bfcb5"
+}
