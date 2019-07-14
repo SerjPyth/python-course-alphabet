@@ -16,7 +16,6 @@ yaml, json, pickle відповідно.
 Advanced
 Добавити опрацьовку формату ini
 
-"""
 
 from __future__ import annotations
 import uuid
@@ -322,3 +321,4 @@ class Cesar:
     def to_json(obj: Cesar):
         data = {"name": obj.name, "register_id": str(obj.register_id), "garages": str(obj.garages)}
         return data
+

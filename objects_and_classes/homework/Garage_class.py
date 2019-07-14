@@ -190,7 +190,6 @@ aa = (Garage(a, autos, c, d))
 # bbb = sum(map(lambda x: x.get('price'), dict(aaa)))
 # print(bbb)
 # print(Car.__dict__)
-# print(aa.hit_hat())
 # a2a = (Garage(a, cars, c))
 # a2a = (Car(c, a2, b, d, e))
 

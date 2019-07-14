@@ -58,7 +58,8 @@ class WrongException(Exception):
 
 class Car:
 
-    def __init__(self, price, type, producer, number, mileage):
+
+    def __init__(self, price, type, producer, mileage):
         self.price = float(price)
         self.type = type
         if self.type in CARS_TYPES:
@@ -208,7 +209,7 @@ class Garage:
 
 class Cesar:
 
-    def __init__(self, name, register_id, garages=None):
+    def __init__(self, name, garages=None):
         self.name = str(name)
         self.register_id = uuid.uuid4()
         if garages is None:
@@ -243,13 +244,7 @@ class Cesar:
             return sum(total)
 
     def garage_count(self):
-        i = 0
-        j = len(self.garages)
-        while j != 0:
-            for garage in self.garages:
-                i += 1
-                j -= 1
-            return i
+       return len(self.garages)
 
     def cars_count(self):
         cars_num = 0
