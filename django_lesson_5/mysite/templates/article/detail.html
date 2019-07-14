@@ -1,0 +1,62 @@
+{% load static %}
+{% load article_tags %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+<a href="{% url 'index'  %}"> Home </a>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<p>Author: {{ article.author }}</p>
+
+<p>Title: {{ article.title }}</p>
+
+{% comment %}<p>Description: {% select_description article language %}</p>{% endcomment %}
+<p>Description: {{ article.description|safe }}</p>
+
+
+<a href="{% url 'update' article.id %}">Update</a>
+<a href="{% url 'delete' article.id %}">Delete</a>
+
+<a href="{% url 'add_comment' article.id %}">Add Comment</a>
+
+<h2> Comments </h2>
+    {% for comment in object_list %}
+    <br>
+    <li> {{ comment.author }} &emsp; commented at: {{ comment.pub_date }}
+         {{ comment.comment|safe}}
+    <a href="{% url 'reply_to_comment' article.id comment.pk %}"> Reply </a>
+    </li>
+
+    {% endfor %}
+
+
+
+{% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
